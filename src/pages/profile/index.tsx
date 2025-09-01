@@ -20,9 +20,19 @@ const Profile: NextPage = () => {
     router.push('/question-bank');
   };
 
-  const goToUpdateProfile = (e: MouseEvent<HTMLButtonElement>) => {
+  const goToUpdateProfile = (e: MouseEvent<HTMLOrSVGElement>) => {
     e.preventDefault();
     router.push('/update-profile');
+  };
+
+  const goToCronogram = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push('/cronogram');
+  };
+
+  const goToWriting = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push('/writing');
   };
 
   const buttonStyles = {
@@ -49,6 +59,7 @@ const Profile: NextPage = () => {
       padding: '20px'
     }}>
       <div style={{
+        position: 'relative',
         textAlign: 'center',
         padding: '40px 20px',
         background: '#4c0e71', // prpl2
@@ -57,7 +68,42 @@ const Profile: NextPage = () => {
         width: '100%',
         maxWidth: '600px'
       }}>
-        <h1 style={{ color: 'white', margin: '10px 0', fontSize: '2rem' }}>Bem-vindo, Usuário!</h1>
+        <svg
+            onClick={goToUpdateProfile}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#f8cb46"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                cursor: 'pointer'
+            }}
+        >
+            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+        </svg>
+        <div style={{
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          background: '#f8cb46', // yllw1
+          margin: '0 auto 20px auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#300345',
+          fontSize: '4rem',
+          fontWeight: 'bold'
+        }}>
+          U
+        </div>
+        <h1 style={{ color: 'white', margin: '10px 0', fontSize: '1.5rem' }}>Bem-vindo, Usuário!</h1>
         <p style={{ color: '#ffe085', marginBottom: '10px', fontSize: '1.1rem' }}>Este é o seu espaço pessoal.</p>
 
         {/* Barra de XP */}
@@ -112,28 +158,6 @@ const Profile: NextPage = () => {
           </button>
 
           <button
-            onClick={goToUpdateProfile}
-            style={{
-              ...buttonStyles,
-              background: '#4c0e71',
-            }}
-            onMouseOver={e => {
-              e.currentTarget.style.background = '#f8cb46';
-              e.currentTarget.style.color = '#300345';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
-            }}
-            onMouseOut={e => {
-              e.currentTarget.style.background = '#4c0e71';
-              e.currentTarget.style.color = 'white';
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
-            }}
-          >
-            Atualizar Dados
-          </button>
-
-          <button
             onClick={goToQuestionBank}
             style={{
               ...buttonStyles,
@@ -153,6 +177,48 @@ const Profile: NextPage = () => {
             }}
           >
             Banco de Questões
+          </button>
+          <button
+            onClick={goToCronogram}
+            style={{
+              ...buttonStyles,
+              background: '#4c0e71',
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.background = '#f8cb46';
+              e.currentTarget.style.color = '#300345';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.background = '#4c0e71';
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+            }}
+          >
+            Cronograma de Estudo
+          </button>
+          <button
+            onClick={goToWriting}
+            style={{
+              ...buttonStyles,
+              background: '#4c0e71',
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.background = '#f8cb46';
+              e.currentTarget.style.color = '#300345';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.background = '#4c0e71';
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+            }}
+          >
+            Fazer Redação
           </button>
         </div>
       </div>

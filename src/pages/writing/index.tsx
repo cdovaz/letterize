@@ -2,13 +2,13 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { MouseEvent, CSSProperties } from 'react';
 
-const UpdateProfile: NextPage = () => {
+const Writing: NextPage = () => {
   const router = useRouter();
 
-  const handleSave = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSend = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // Lógica para salvar os dados virá aqui
-    console.log('Salvando dados...');
+    // Lógica para enviar a redação virá aqui
+    console.log('Enviando redação...');
     router.push('/profile');
   };
 
@@ -17,14 +17,16 @@ const UpdateProfile: NextPage = () => {
     router.push('/profile');
   };
 
-  const inputStyles: CSSProperties = {
+  const textAreaStyles: CSSProperties = {
     width: '100%',
+    height: '400px',
     padding: '12px',
     marginBottom: '20px',
     border: '1px solid #ccc',
     borderRadius: '5px',
     boxSizing: 'border-box',
-    fontSize: '16px'
+    fontSize: '16px',
+    resize: 'vertical'
   };
 
   const buttonStyles: CSSProperties = {
@@ -55,56 +57,16 @@ const UpdateProfile: NextPage = () => {
         borderRadius: '10px',
         textAlign: 'center',
         width: '100%',
-        maxWidth: '500px'
+        maxWidth: '800px'
       }}>
-        <h1 style={{ marginBottom: '30px', color: 'white', fontSize: '2rem' }}>Atualizar Dados</h1>
+        <h1 style={{ marginBottom: '30px', color: 'white', fontSize: '2rem' }}>Fazer Redação</h1>
         <form>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '30px' }}>
-                <div style={{
-                    width: '120px',
-                    height: '120px',
-                    borderRadius: '50%',
-                    background: '#f8cb46', // yllw1
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#300345',
-                    fontSize: '5rem',
-                    fontWeight: 'bold',
-                    marginBottom: '15px'
-                }}>
-                    U
-                </div>
-                <input type="file" id="profile-picture" style={{ display: 'none' }} />
-                <label htmlFor="profile-picture" style={{
-                    padding: '10px 20px',
-                    background: '#f8cb46',
-                    color: '#300345',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    fontSize: '14px'
-                }}>
-                    Alterar Foto
-                </label>
-            </div>
-
-          <input
-            type="text"
-            placeholder="Nome Completo"
-            style={inputStyles}
-          />
-          <input
-            type="text"
-            placeholder="Apelido"
-            style={inputStyles}
-          />
-          <input
-            type="date"
-            placeholder="Data de Nascimento"
-            style={inputStyles}
+          <textarea
+            placeholder="Comece a escrever sua redação aqui..."
+            style={textAreaStyles}
           />
           <button
-            onClick={handleSave}
+            onClick={handleSend}
             style={{
               ...buttonStyles,
               background: '#300345', // prpl1
@@ -119,7 +81,7 @@ const UpdateProfile: NextPage = () => {
               e.currentTarget.style.color = 'white';
             }}
           >
-            Salvar Alterações
+            Enviar Redação
           </button>
           <button
             onClick={handleBack}
@@ -146,4 +108,4 @@ const UpdateProfile: NextPage = () => {
   );
 };
 
-export default UpdateProfile;
+export default Writing;
