@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { MouseEvent } from 'react';
+import { MouseEvent, CSSProperties } from 'react';
 
 const UpdateProfile: NextPage = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const UpdateProfile: NextPage = () => {
     router.push('/profile');
   };
 
-  const inputStyles = {
+  const inputStyles: CSSProperties = {
     width: '100%',
     padding: '12px',
     marginBottom: '20px',
@@ -27,7 +27,7 @@ const UpdateProfile: NextPage = () => {
     fontSize: '16px'
   };
 
-  const buttonStyles = {
+  const buttonStyles: CSSProperties = {
     width: '100%',
     padding: '12px',
     color: 'white',
