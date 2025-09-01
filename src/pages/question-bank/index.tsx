@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
+import Image from 'next/image';
 
 // Dados de exemplo que viriam do Firestore no futuro
 const filterOptions = {
@@ -91,13 +92,13 @@ const QuestionBank: NextPage = () => {
         </div>
 
         <p style={{ color: '#e0e0e0', lineHeight: 1.6 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
-        <img src="https://via.placeholder.com/700x350/300345/ffe085?text=Ilustração+Genérica" alt="Ilustração da questão" style={{ width: '100%', borderRadius: '8px', margin: '20px 0' }} />
+        <Image src="https://via.placeholder.com/700x350/300345/ffe085?text=Ilustração+Genérica" alt="Ilustração da questão" width={700} height={350} style={{ width: '100%', height: 'auto', borderRadius: '8px', margin: '20px 0' }} />
         <h3 style={{ color: '#ffe085', marginBottom: '25px' }}>Com base no texto e na imagem, qual das seguintes afirmações é a mais correta?</h3>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           {[...Array(5)].map((_, index) => {
             const isSelected = selectedAlternative === index;
-            let buttonStyle = { width: '100%', padding: '15px', color: 'white', border: '2px solid #300345', borderRadius: '8px', cursor: 'pointer', fontSize: '16px', transition: 'all 0.2s', background: 'transparent', textAlign: 'left' as const };
+            const buttonStyle: React.CSSProperties = { width: '100%', padding: '15px', color: 'white', border: '2px solid #300345', borderRadius: '8px', cursor: 'pointer', fontSize: '16px', transition: 'all 0.2s', background: 'transparent', textAlign: 'left' };
 
             if (isAnswered) {
                 if (index === correctAnswerIndex) {
@@ -122,7 +123,7 @@ const QuestionBank: NextPage = () => {
         </div>
 
         <button onClick={handleAnswer} disabled={isAnswered || selectedAlternative === null} style={{
-          width: '100%', padding: '15px', color: '#300345', border: 'none', borderRadius: '8px', cursor: isAnswered ? 'not-allowed' : 'pointer',
+          width: '100%', padding: '15px', border: 'none', borderRadius: '8px', cursor: isAnswered ? 'not-allowed' : 'pointer',
           fontSize: '18px', fontWeight: 'bold', marginTop: '30px', transition: 'background 0.3s',
           background: isAnswered ? (isCorrect ? '#28a745' : '#dc3545') : '#f8cb46',
           color: isAnswered ? 'white' : '#300345'
