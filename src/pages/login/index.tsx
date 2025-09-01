@@ -1,98 +1,79 @@
+
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { MouseEvent } from 'react';
+import { useState } from 'react';
+import Link from 'next/link';
 
 const Login: NextPage = () => {
-  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLogin = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Simulando login...');
-    router.push('/profile');
-  };
-  
-  const handleGoogleLogin = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log('Simulando login com Google...');
-    router.push('/profile');
+    console.log('Email:', email, 'Senha:', password);
   };
 
-  const buttonStyles = {
-    width: '100%',
-    padding: '12px',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background 0.2s, color 0.2s',
+  const handleGoogleLogin = () => {
+    // Futura implementação do login com Google
+    console.log('Botão de login com Google clicado.');
   };
 
   return (
     <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      background: '#300345', // Cor de fundo prpl1
-      padding: '20px'
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      minHeight: '100vh', background: '#300345', padding: '20px',
+      fontFamily: 'sans-serif'
     }}>
       <div style={{
-        padding: '40px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-        background: '#4c0e71', // prpl2
-        borderRadius: '10px',
-        textAlign: 'center',
-        width: '100%',
-        maxWidth: '400px'
+        padding: '40px', boxShadow: '0 8px 25px rgba(0,0,0,0.4)',
+        background: '#4c0e71', borderRadius: '10px', width: '100%',
+        maxWidth: '400px', textAlign: 'center'
       }}>
-        <h1 style={{ marginBottom: '24px', color: 'white', fontSize: '2rem' }}>Login</h1>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          style={{ width: '100%', padding: '12px', marginBottom: '12px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box' }} 
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          style={{ width: '100%', padding: '12px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '5px', boxSizing: 'border-box' }} 
-        />
-        <button 
-          onClick={handleLogin}
-          style={{
-            ...buttonStyles,
-            background: '#300345', // prpl1
-            marginBottom: '12px',
-          }}
-          onMouseOver={e => {
-            e.currentTarget.style.background = '#f8cb46'; // yllw1
-            e.currentTarget.style.color = '#300345'; // prpl1
-          }}
-          onMouseOut={e => {
-            e.currentTarget.style.background = '#300345'; // prpl1
-            e.currentTarget.style.color = 'white';
-          }}
-        >
-          Login
+        <h1 style={{ color: '#f8cb46', fontSize: '2.5rem', marginBottom: '30px' }}>Login</h1>
+        
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <input
+            type="email"
+            placeholder="Seu e-mail"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <input
+            type="password"
+            placeholder="Sua senha"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <button type="submit" style={{
+            padding: '15px', color: '#300345', border: 'none',
+            borderRadius: '5px', cursor: 'pointer', fontSize: '18px',
+            fontWeight: 'bold', background: '#f8cb4e'
+          }}>Entrar</button>
+        </form>
+
+        <div style={{ margin: '20px 0', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <hr style={{ flex: 1, borderColor: '#6a2c91' }} />
+            <span style={{ margin: '0 10px' }}>OU</span>
+            <hr style={{ flex: 1, borderColor: '#6a2c91' }} />
+        </div>
+
+        <button onClick={handleGoogleLogin} style={{
+            padding: '15px', color: '#300345', border: 'none', width: '100%',
+            borderRadius: '5px', cursor: 'pointer', fontSize: '16px',
+            fontWeight: 'bold', background: '#f8cb4e', display: 'flex',
+            alignItems: 'center', justifyContent: 'center', gap: '10px'
+        }}>
+           <img src="/google-logo.svg" alt="Google logo" style={{ height: '18px' }}/>
+           Entrar com Google
         </button>
-        <button 
-          onClick={handleGoogleLogin}
-          style={{
-            ...buttonStyles,
-            background: '#300345', // prpl1
-          }}
-          onMouseOver={e => {
-            e.currentTarget.style.background = '#f8cb46'; // yllw1
-            e.currentTarget.style.color = '#300345'; // prpl1
-          }}
-          onMouseOut={e => {
-            e.currentTarget.style.background = '#300345'; // prpl1
-            e.currentTarget.style.color = 'white';
-          }}
-        >
-          Login com Google
-        </button>
+
+        <div style={{ marginTop: '25px' }}>
+            <Link href="/create-account" style={{ color: '#f8cb46', textDecoration: 'none', fontSize: '16px' }}>
+                Criar conta
+            </Link>
+        </div>
+
       </div>
     </div>
   );
