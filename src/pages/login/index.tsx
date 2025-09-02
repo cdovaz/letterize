@@ -14,17 +14,17 @@ const GoogleLoginButton = dynamic(() => import('@/components/GoogleLoginButton')
 const Login: NextPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Renomeado para evitar conflito
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMessage(null);
+    setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/profile');
-    } catch (err: unknown) { // Alterado para unknown
-      setErrorMessage("E-mail ou senha inválidos. Tente novamente."); // Mensagem genérica e segura
+    } catch (err: unknown) {
+      setError("E-mail ou senha inválidos. Tente novamente.");
     }
   };
 
@@ -33,18 +33,50 @@ const Login: NextPage = () => {
   };
 
   return (
-    <div style={{...}}>
-        <div style={{...}}>
-            <h1 style={{...}}>Login</h1>
-            {errorMessage && <p style={{ color: '#ff7f7f', marginBottom: '20px' }}>{errorMessage}</p>} {/* Exibe a mensagem de erro */}
-            <form onSubmit={handleLogin} style={{...}}>
-                {/* Inputs e botão */}
-            </form>
-            <GoogleLoginButton onClick={handleGoogleLogin} />
-            <div style={{...}}>
-                {/* Link para criar conta */}
-            </div>
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      minHeight: '100vh', background: '#300345', padding: '20px',
+      fontFamily: 'sans-serif'
+    }}>
+      <div style={{
+        padding: '40px', boxShadow: '0 8px 25px rgba(0,0,0,0.4)',
+        background: '#4c0e71', borderRadius: '10px', width: '100%',
+        maxWidth: '400px', textAlign: 'center'
+      }}>
+        <h1 style={{ color: '#f8cb46', fontSize: '2.5rem', marginBottom: '30px' }}>Login</h1>
+        {error && <p style={{ color: 'red', marginBottom: '20px' }}>{error}</p>}
+        
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <input
+            type="email"
+            placeholder="Seu e-mail"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <input
+            type="password"
+            placeholder="Sua senha"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <button type="submit" style={{
+            padding: '15px', color: '#300345', border: 'none',
+            borderRadius: '5px', cursor: 'pointer', fontSize: '18px',
+            fontWeight: 'bold', background: '#f8cb4e'
+          }}>Entrar</button>
+        </form>
+
+        <GoogleLoginButton onClick={handleGoogleLogin} />
+
+        <div style={{ marginTop: '25px' }}>
+            <Link href="/create-account" style={{ color: '#f8cb46', textDecoration: 'none', fontSize: '16px' }}>
+                Criar conta
+            </Link>
         </div>
+
+      </div>
     </div>
   );
 };

@@ -76,8 +76,70 @@ const CreateAccount: NextPage = () => {
   };
 
   return (
-    <div style={{...}}>
-      {/* JSX permanece o mesmo */}
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      minHeight: '100vh', background: '#300345', padding: '20px',
+      fontFamily: 'sans-serif'
+    }}>
+      <div style={{
+        padding: '40px', boxShadow: '0 8px 25px rgba(0,0,0,0.4)',
+        background: '#4c0e71', borderRadius: '10px', width: '100%',
+        maxWidth: '400px', textAlign: 'center'
+      }}>
+        <h1 style={{ color: '#f8cb46', fontSize: '2.5rem', marginBottom: '30px' }}>Criar Conta</h1>
+        {error && <p style={{ color: '#ff7f7f', marginBottom: '20px' }}>{error}</p>}
+        
+        <form onSubmit={handleCreateAccount} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <input
+            type="text"
+            placeholder="Seu nome (será exibido no perfil)"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            required
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <input
+            type="email"
+            placeholder="Seu e-mail"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <input
+            type="password"
+            placeholder="Sua senha (mín. 8 dígitos)"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <input
+            type="text"
+            placeholder="Data de nascimento (DD/MM/AAAA)"
+            value={birthDate}
+            onChange={handleDateChange}
+            maxLength={10}
+            required
+            style={{ padding: '15px', border: '1px solid #300345', borderRadius: '5px', fontSize: '16px', backgroundColor: '#f8f9fa' }}
+          />
+          <button type="submit" disabled={loading} style={{
+            padding: '15px', color: '#300345', border: 'none',
+            borderRadius: '5px', cursor: 'pointer', fontSize: '18px',
+            fontWeight: 'bold', background: loading ? '#ccc' : '#f8cb46',
+            transition: 'background-color 0.3s'
+          }}>
+            {loading ? 'Criando...' : 'Criar Conta'}
+          </button>
+        </form>
+
+        <div style={{ marginTop: '25px' }}>
+            <Link href="/login" style={{ color: '#f8cb46', textDecoration: 'none', fontSize: '16px' }}>
+                Já tem uma conta? Faça login
+            </Link>
+        </div>
+
+      </div>
     </div>
   );
 };

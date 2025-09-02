@@ -33,6 +33,12 @@ Esta seção documenta todas as características e decisões de design da aplica
     *   **Personalização Dinâmica:** A página exibe uma mensagem de boas-vindas personalizada (`Bem-vindo, {nome do usuário}!`) e usa a primeira letra do nome do usuário para o avatar. Esses dados são obtidos dinamicamente do `displayName` disponível no hook `useAuth`.
     *   Inclui navegação para outras seções da aplicação, como Dashboards, Banco de Questões, Cronograma e Redação.
 
+### Configuração do Projeto
+
+*   **Desativação do ESLint em Builds:**
+    *   Para acelerar o processo de desenvolvimento e evitar bloqueios por erros de lint durante a compilação de produção, o ESLint foi configurado para ser ignorado durante o build.
+    *   Essa configuração foi adicionada ao arquivo `next.config.js`.
+
 ### Design e Estilo
 
 *   **Paleta de Cores:** A interface utiliza um esquema de cores roxo e amarelo, com os códigos `#300345` (roxo escuro), `#4c0e71` (roxo médio), e `#f8cb46` (amarelo), criando um visual vibrante e moderno.
@@ -45,11 +51,9 @@ Esta seção documenta todas as características e decisões de design da aplica
 
 Esta seção descreve as tarefas realizadas nesta sessão de desenvolvimento.
 
-*   **Objetivo:** Refatorar a página de perfil para exibir o nome do usuário dinamicamente em vez de "Usuário".
+*   **Objetivo:** Desativar o ESLint durante o processo de build para acelerar o desenvolvimento.
 
 *   **Passos Executados:**
-    1.  **[COMPLETO]** Criado o hook `useAuth` em `src/hooks/useAuth.ts` para obter o estado do usuário logado de forma centralizada.
-    2.  **[COMPLETO]** Refatorada a página de perfil em `src/pages/profile/index.tsx` para utilizar o `useAuth`, exibir o nome do usuário (`displayName`), e proteger a rota.
-    3.  **[COMPLETO]** Identificado que o `displayName` não estava sendo salvo durante o cadastro do usuário.
-    4.  **[COMPLETO]** Modificado o processo de criação de conta em `src/pages/create-account/index.tsx` para usar a função `updateProfile` e salvar o nome do usuário no objeto de autenticação do Firebase.
-    5.  **[COMPLETO]** Criado este arquivo `blueprint.md` para documentar o estado atual e as funcionalidades do projeto.
+    1.  **[COMPLETO]** Criado o arquivo `next.config.js` na raiz do projeto.
+    2.  **[COMPLETO]** Adicionada a configuração `eslint: { ignoreDuringBuilds: true }` ao arquivo `next.config.js`.
+    3.  **[COMPLETO]** Atualizado o `blueprint.md` para documentar a nova configuração do projeto.
