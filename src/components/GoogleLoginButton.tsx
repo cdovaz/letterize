@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image'; // Importa o componente Image
 
 interface GoogleLoginButtonProps {
   onClick: () => void;
@@ -19,7 +20,8 @@ const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({ onClick }) => {
           fontWeight: 'bold', background: '#f8cb4e', display: 'flex',
           alignItems: 'center', justifyContent: 'center', gap: '10px'
       }}>
-         <img src="/google-logo.svg" alt="Google logo" style={{ height: '18px' }}/>
+         {/* Substitui <img> por <Image> */}
+         <Image src="/google-logo.svg" alt="Google logo" width={18} height={18} />
          Entrar com Google
       </button>
     </>

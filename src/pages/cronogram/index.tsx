@@ -1,19 +1,16 @@
 
 import type { NextPage } from 'next';
 import { useState, useMemo, useEffect } from 'react';
-import { CSSProperties } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { firestore } from '@/lib/firebase';
 import useAuth from '@/hooks/useAuth';
 
-// --- ESTRUTURA DE DADOS (sem alterações) ---
 interface Task { name: string; completed: boolean; }
 interface DailySchedule { tasks: Task[]; quizTaken: boolean; }
 interface ScheduleData { [key: string]: DailySchedule; }
 
-// --- DADOS INICIAIS DE EXEMPLO (para novos usuários) ---
 const fallbackSchedule: ScheduleData = {
-  [formatDate(new Date())]: { // Adiciona tarefas para o dia de hoje dinamicamente
+  [formatDate(new Date())]: {
       tasks: [{ name: 'Matemática', completed: false }, { name: 'Física', completed: false }],
       quizTaken: false 
   }
@@ -27,7 +24,6 @@ const Cronogram: NextPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
 
-  // --- EFEITO PARA CARREGAR DADOS DO FIRESTORE ---
   useEffect(() => {
     if (authLoading) return;
     if (!user) { window.location.href = '/login'; return; }
@@ -40,7 +36,6 @@ const Cronogram: NextPage = () => {
       if (docSnap.exists()) {
         setSchedule(docSnap.data() as ScheduleData);
       } else {
-        // Se não existir, cria um cronograma inicial para o usuário
         await setDoc(docRef, fallbackSchedule);
         setSchedule(fallbackSchedule);
       }
@@ -50,7 +45,6 @@ const Cronogram: NextPage = () => {
     fetchSchedule();
   }, [user, authLoading]);
 
-  // --- LÓGICA DE ATUALIZAÇÃO E SALVAMENTO ---
   const updateAndSaveChanges = async (updatedSchedule: ScheduleData) => {
     if (!user) return;
     setSchedule(updatedSchedule);
@@ -78,7 +72,6 @@ const Cronogram: NextPage = () => {
     alert('Questionário iniciado!');
   };
 
-  // O resto da lógica (navegação, etc.) permanece a mesma...
   const currentDayKey = formatDate(currentDate);
   const todaysSchedule = useMemo(() => schedule[currentDayKey] || { tasks: [], quizTaken: false }, [schedule, currentDayKey]);
   const changeDay = (days: number) => { setCurrentDate(prev => { const d = new Date(prev); d.setDate(d.getDate() + days); return d; }); };
@@ -87,7 +80,6 @@ const Cronogram: NextPage = () => {
       return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#300345', color: 'white'}}><h1>Carregando seu cronograma...</h1></div>;
   }
 
-  // --- RENDERIZAÇÃO (JSX) idêntica à versão anterior ---
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#300345', padding: '20px', fontFamily: 'sans-serif' }}>
       <div style={{ padding: '40px', background: '#4c0e71', borderRadius: '15px', boxShadow: '0 10px 30px rgba(0,0,0,0.4)', textAlign: 'center', width: '100%', maxWidth: '600px' }}>
